@@ -19,8 +19,7 @@
 | environment.TERRAFORM_REPO | git url    | Репозиторий с main.tf                                              |
 | environment.ESXI_SERVER    | IP/DNS     | IP или DNS ESXI                                                    |
 | environment.SECURE_SERVER  | IP/DNS     | IP или DNS "безопасного" сервера с inventory.json и structure.yaml |
-| environment.VARIABLES      | path       | Расположение variables.tf на "безопасном" сервере                  |
-| environment.TFSTATE        | path       | Расположение terraform.tfstate на "безопасном" сервере             |
+| environment.SECURE_PATH    | path       | Расположение на "безопасном" сервере                               |
 | environment.APPLY          | true       | Применить изменения.                                               |
 
 ### Дополнительно
