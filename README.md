@@ -1,6 +1,7 @@
 # terraform-image
 ## Описание
 * Образ основан на alpine/terragrunt
+* Для управления esxi используется провайдер [josenk/esxi](https://github.com/josenk/terraform-provider-esxi).
 * Сборка образа выполняется в github ci и помещается в registry.
 * Для загрузки main.tf требуется указать environment.TERRAFORM_REPO.
 * Образ зависим от файлов variables.tf, terraform.tfstate, которые копируются из "безопасного" расположения.
@@ -25,55 +26,7 @@
 
 
 ### Дополнительно
-variables.tf
-```terraform
-variable "esxi_hostname" {
-  default = "esxi"
-}
 
-variable "esxi_hostport" {
-  default = "22"
-}
-
-variable "esxi_username" {
-  default = "root"
-}
-
-variable "esxi_password" {
-  default = "xxxxxxxx"
-}
-```
-inventory.json
-```json
-{
-  "control": {
-    "hosts": {
-      "control02": null,
-      "control03": null
-    }
-  },
-  "control_main": {
-    "hosts": {
-      "control01": null
-    }
-  },
-  "dev": {
-    "hosts": {
-      "dev01": null
-    }
-  },
-  "prod": {
-    "hosts": {
-      "prod01": null
-    }
-  },
-  "test": {
-    "hosts": {
-      "test01": null
-    }
-  }
-}
-```
 
 ### Заметки
 
