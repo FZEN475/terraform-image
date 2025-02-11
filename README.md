@@ -3,7 +3,7 @@
 * Образ основан на alpine/terragrunt
 * Сборка образа выполняется в github ci и помещается в registry.
 * Для загрузки main.tf требуется указать environment.TERRAFORM_REPO.
-* Образ зависим от файлов variables.tf и terraform.tfstate, которые копируются из "безопасного" расположения.
+* Образ зависим от файлов variables.tf, terraform.tfstate, которые копируются из "безопасного" расположения.
   * variables.tf содержит пароль от esxi.
   * Если terraform.tfstate не существует, то создастся при первом запуске.
 
