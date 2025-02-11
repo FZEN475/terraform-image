@@ -1,4 +1,4 @@
-# terraform-image1
+# terraform-image
 ## Описание
 * Образ основан на alpine/terragrunt
 * Сборка образа выполняется в github ci и помещается в registry.
