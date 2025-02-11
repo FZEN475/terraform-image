@@ -19,6 +19,7 @@ function init_terraform() {
     git clone "${TERRAFORM_REPO}" /source/
     scp -O "${SECURE_SERVER}:${SECURE_PATH}variables.tf" /source
     scp -O "${SECURE_SERVER}:${SECURE_PATH}terraform.tfstate" /source
+    ls -all /source/
     scp -Or /source/inventory.yaml "${SECURE_SERVER}:${SECURE_PATH}"
     terraform init -input=false
     terraform providers
