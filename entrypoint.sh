@@ -21,6 +21,8 @@ function init_terraform() {
     scp -O "${SECURE_SERVER}:${SECURE_PATH}terraform.tfstate" /source
     ls -all /source/
     scp -Or /source/inventory.yaml "${SECURE_SERVER}:${SECURE_PATH}"
+    # shellcheck disable=SC2164
+    cd /source/
     terraform init -input=false
     terraform providers
 }
