@@ -21,22 +21,20 @@ function init_terraform() {
     scp -O "${SECURE_SERVER}:${SECURE_PATH}terraform.tfstate" /source
     ls -all /source/
     scp -Or /source/inventory.yaml "${SECURE_SERVER}:${SECURE_PATH}"
-    # shellcheck disable=SC2164
-    cd /source/
-    terraform init -input=false
-    terraform providers
+    terraform -chdir=/source/ init -input=false
+    terraform -chdir=/source/ providers
 }
 
 function plan() {
-  terraform plan
-  terraform output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
+  terraform -chdir=/source/ plan
+  terraform -chdir=/source/ output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
   scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${SECURE_PATH}"
   scp -Or /source/inventory.json "${SECURE_SERVER}:${SECURE_PATH}"
 }
 
 function apply() {
-  terraform apply -auto-approve
-  terraform output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
+  terraform -chdir=/source/ apply -auto-approve
+  terraform -chdir=/source/ output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
   scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${SECURE_PATH}"
   scp -Or /source/inventory.json "${SECURE_SERVER}:${SECURE_PATH}"
 }
