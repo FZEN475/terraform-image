@@ -1,4 +1,4 @@
-FROM alpine:latest as ansible
+FROM alpine/terragrunt as terraform
 
 RUN apk add jq git
 
