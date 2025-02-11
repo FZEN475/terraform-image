@@ -17,8 +17,9 @@ function init_ssh_access() {
 function init_terraform() {
     mkdir -p /source/
     git clone "${TERRAFORM_REPO}" /source/
-    scp -O "${SECURE_SERVER}:${VARIABLES}" /source
-    scp -O "${SECURE_SERVER}:${TFSTATE}" /source
+    scp -O "${SECURE_SERVER}:${SECURE_PATH}variables.tf" /source
+    scp -O "${SECURE_SERVER}:${SECURE_PATH}terraform.tfstate" /source
+    scp -Or /source/inventory.yaml "${SECURE_SERVER}:${SECURE_PATH}"
     terraform init -input=false
     terraform providers
 }
@@ -26,15 +27,15 @@ function init_terraform() {
 function plan() {
   terraform plan
   terraform output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
-  scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${TFSTATE}"
-  scp -Or /source/inventory.json "${SECURE_SERVER}:${VARIABLES}"
+  scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${SECURE_PATH}"
+  scp -Or /source/inventory.json "${SECURE_SERVER}:${SECURE_PATH}"
 }
 
 function apply() {
   terraform apply -auto-approve
   terraform output -json | jq -r 'del(.[]|."sensitive") | del(.[]|."type") | walk(if type == "object" then with_entries( if .key == "value" then .key = "hosts" | .value = (.value | map({(.) : null} )  | add) else . end ) else . end) ' > /source/inventory.json
-  scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${TFSTATE}"
-  scp -Or /source/inventory.json "${SECURE_SERVER}:${VARIABLES}"
+  scp -Or /source/terraform.tfstate "${SECURE_SERVER}:${SECURE_PATH}"
+  scp -Or /source/inventory.json "${SECURE_SERVER}:${SECURE_PATH}"
 }
 
 init_ssh_access
