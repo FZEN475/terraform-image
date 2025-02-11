@@ -39,11 +39,11 @@ function apply() {
 
 init_ssh_access
 init_terraform
-if [[ "$1" == "${APPLY}" ]]
+if [[ "true" == "${APPLY}" ]]
 then
   apply
 else
   plan
 fi
-cat /source/inventory.json
+
 
