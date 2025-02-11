@@ -40,7 +40,6 @@ function apply() {
 
 init_ssh_access
 init_terraform
-echo "${APPLY}"
 if [[ "true" == "${APPLY}" ]]
 then
   echo "apply"
