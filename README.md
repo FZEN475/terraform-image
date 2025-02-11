@@ -13,14 +13,16 @@
 |:-------|:----------------------------------------------------------------|
 | docker | Локальный или удалённый сервер для сборки и запуска контейнера. | 
 
-| Дополнительно              | Значение   | Comment                                                            |
-|:---------------------------|:-----------|:-------------------------------------------------------------------|
-| secrets.id_ed25519         | id_ed25519 | Закрытый ключ "безопасного" сервера                                |
-| environment.TERRAFORM_REPO | git url    | Репозиторий с main.tf                                              |
-| environment.ESXI_SERVER    | IP/DNS     | IP или DNS ESXI                                                    |
-| environment.SECURE_SERVER  | IP/DNS     | IP или DNS "безопасного" сервера с inventory.json и structure.yaml |
-| environment.SECURE_PATH    | path       | Расположение на "безопасном" сервере                               |
-| environment.APPLY          | true       | Применить изменения.                                               |
+| Дополнительно               | Значение   | Comment                                                            |
+|:----------------------------|:-----------|:-------------------------------------------------------------------|
+| secrets.id_ed25519          | id_ed25519 | Закрытый ключ "безопасного" сервера                                |
+| environment.TERRAFORM_REPO  | git url    | Репозиторий с main.tf                                              |
+| environment.ESXI_SERVER     | IP/DNS     | IP или DNS ESXI                                                    |
+| environment.SECURE_SERVER   | IP/DNS     | IP или DNS "безопасного" сервера с inventory.json и structure.yaml |
+| environment.SECURE_PATH     | path       | Расположение на "безопасном" сервере                               |
+| environment.APPLY           | true       | Применить изменения.                                               |
+| environment.GIT_EXTRA_PARAM | -b dev     | Дополнительные параметры git clone                                 |
+
 
 ### Дополнительно
 variables.tf
