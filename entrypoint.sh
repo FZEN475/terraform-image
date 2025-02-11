@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env ash
 
 function init_ssh_access() {
   mkdir -p /root/.ssh/
@@ -16,9 +16,11 @@ function init_ssh_access() {
 
 function init_terraform() {
     mkdir -p /source/
-    echo "${GIT_EXTRA_PARAM}"
-    echo "${TERRAFORM_REPO}"
-    git clone "${GIT_EXTRA_PARAM}" "${TERRAFORM_REPO}" /source/
+    if [[ -z "${GIT_EXTRA_PARAM}" ]]; then
+      git clone "${TERRAFORM_REPO}" /source/
+    else
+      git clone "${GIT_EXTRA_PARAM}" "${TERRAFORM_REPO}" /source/
+    fi
     scp -O "${SECURE_SERVER}:${SECURE_PATH}variables.tf" /source
     scp -O "${SECURE_SERVER}:${SECURE_PATH}terraform.tfstate" /source
     scp -Or /source/structure.yaml "${SECURE_SERVER}:${SECURE_PATH}"
