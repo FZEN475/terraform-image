@@ -41,8 +41,10 @@ function apply() {
 
 init_ssh_access
 init_terraform
+echo "${APPLY}"
 if [[ "true" == "${APPLY}" ]]
 then
+
   apply
 else
   plan
