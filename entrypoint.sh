@@ -1,4 +1,4 @@
-#!/usr/bin/env ash
+#!/usr/bin/env sh
 
 function init_ssh_access() {
   mkdir -p /root/.ssh/
